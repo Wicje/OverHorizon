@@ -13,10 +13,7 @@ export const projects = [
   { id: 9, name: 'Pixel Perfect', type: 'client', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://rituaaaaal-store.vercel.app/', videoUrl: '/ritual.mp4' },
   { id: 10, name: 'Interface X', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-black', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://xio-labs.vercel.app/', videoUrl: '/xiolabs.mp4' },
   { id: 11, name: 'Vector Flow', type: 'client', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://airline-ashy.vercel.app/', videoUrl: '/joby.mp4' },
-  { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', videoUrl: '/trigger.mp4' },
-  { id: 13, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
-  { id: 14, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
-  { id: 15, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
+  { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-10', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', videoUrl: '/trigger.mp4' },
 ]
 
 export const writings = [

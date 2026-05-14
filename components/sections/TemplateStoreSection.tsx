@@ -63,23 +63,6 @@ const TemplateStoreSection = ({ projects, isOpen, onClose, isMobile }: TemplateS
             <ArrowDown className="rotate-180" size={16} />
           </button>
 
-          {/* Center Branding - Pixel Perfect Editorial Font */}
-          <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-center"
-            >
-              <h2 className="text-white text-[32px] md:text-[62px] font-medium tracking-tight whitespace-nowrap" style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>
-                Made with
-              </h2>
-              <h2 className="text-white text-[32px] md:text-[62px] font-medium tracking-tight mt-[-10px]" style={{ fontFamily: 'Georgia, serif' }}>
-                OverHorizon
-              </h2>
-            </motion.div>
-          </div>
-
           {/* Immersive 3D Space */}
           <div className="relative w-full h-full flex items-center justify-center overflow-hidden" style={{ perspective: '2000px' }}>
             <div 
