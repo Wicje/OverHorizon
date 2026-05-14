@@ -12,7 +12,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // --- Types ---
-type ViewMode = 'about' | 'os-tools' | 'writing' | 'ballpark'
+type ViewMode = 'about' | 'os-tools' | 'writing' | 'ballpark' | 'template-store'
 
 // --- Components ---
 
@@ -925,6 +925,138 @@ const BallparkEstimator = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
   )
 }
 
+const TemplateStoreSection = ({ projects, isOpen, onClose, isMobile }: { projects: any[], isOpen: boolean, onClose: () => void, isMobile: boolean }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
+  
+  // High density grid items
+  const allProjects = [...projects, ...projects, ...projects, ...projects].slice(0, 48)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!gridRef.current) return
+      const { clientX, clientY } = e
+      const xPos = (clientX / window.innerWidth - 0.5) * 12 
+      const yPos = (clientY / window.innerHeight - 0.5) * -12
+      
+      gsap.to(gridRef.current, {
+        rotateY: xPos,
+        rotateX: yPos,
+        duration: 2,
+        ease: 'power2.out'
+      })
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [isOpen])
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black overflow-hidden flex items-center justify-center p-0"
+        >
+          {/* Vignette Overlay for focus */}
+          <div className="absolute inset-0 z-40 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)]" />
+
+          {/* Minimalist Close button */}
+          <button 
+            onClick={onClose}
+            className="absolute top-10 right-10 z-[120] text-white/30 hover:text-white transition-all duration-500 flex items-center gap-2 group p-4"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">Return to Studio</span>
+            <div className="w-8 h-[1px] bg-white/20 group-hover:bg-white transition-colors" />
+            <ArrowDown className="rotate-180" size={16} />
+          </button>
+
+          {/* Center Branding - Pixel Perfect Editorial Font */}
+          <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center"
+            >
+              <h2 className="text-white text-[32px] md:text-[62px] font-medium tracking-tight whitespace-nowrap" style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>
+                Made with
+              </h2>
+              <h2 className="text-white text-[32px] md:text-[62px] font-medium tracking-tight mt-[-10px]" style={{ fontFamily: 'Georgia, serif' }}>
+                OverHorizon
+              </h2>
+            </motion.div>
+          </div>
+
+          {/* Immersive 3D Space */}
+          <div className="relative w-full h-full flex items-center justify-center overflow-hidden" style={{ perspective: '2000px' }}>
+            <div 
+              ref={gridRef}
+              className="grid grid-cols-4 md:grid-cols-8 gap-2 md:gap-3 p-4 md:p-10"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {allProjects.map((project, i) => {
+                const cols = isMobile ? 4 : 8
+                const rows = 6
+                const row = Math.floor(i / cols)
+                const col = i % cols
+                
+                const relX = col - (cols - 1) / 2
+                const relY = row - (rows - 1) / 2
+                
+                const rotY = relX * -15
+                const rotX = relY * 12
+                const distOffset = Math.sqrt(relX * relX + relY * relY)
+                const transZ = -450 + (distOffset * 95)
+
+                return (
+                  <motion.a
+                    key={`${project.id}-${i}`}
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, scale: 0.6, z: -2000 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1, 
+                      z: transZ,
+                      rotateY: rotY,
+                      rotateX: rotX,
+                      transition: { delay: i * 0.012, duration: 1.6, ease: [0.22, 1, 0.36, 1] }
+                    }}
+                    whileHover={{ 
+                      scale: 1.1, 
+                      z: transZ + 120, 
+                      transition: { duration: 0.35 } 
+                    }}
+                    className="block aspect-[4/3] bg-white/5 overflow-hidden rounded-[2px] md:rounded-[6px] relative group border border-white/5 w-[22vw] md:w-[220px] shadow-2xl"
+                  >
+                    <Image 
+                      src={`https://picsum.photos/seed/${project.id + (i % 12)}/800/600`} 
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-all duration-1000 group-hover:scale-105 opacity-30 group-hover:opacity-100 grayscale group-hover:grayscale-0"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors duration-700" />
+                    <div className="absolute inset-0 p-3 md:p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-white text-[8px] md:text-[9px] font-bold uppercase tracking-widest translate-y-1 group-hover:translate-y-0 transition-transform duration-300">{project.name}</span>
+                    </div>
+                  </motion.a>
+                )
+              })}
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 export default function OverStimulatedApp() {
   const isMobile = useIsMobile()
   const [isReady, setIsReady] = useState(false)
@@ -1017,7 +1149,8 @@ export default function OverStimulatedApp() {
 
   const containerRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLElement>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const scrollRef1 = useRef<HTMLDivElement>(null)
+  const scrollRef2 = useRef<HTMLDivElement>(null)
   const detailsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -1052,25 +1185,49 @@ export default function OverStimulatedApp() {
     })
 
     // Infinite Auto Scroll Logic
-    const scroller = scrollRef.current
-    if (scroller && !showDetails) {
-      let loopAnimation: gsap.core.Tween;
+    const scroller1 = scrollRef1.current
+    const scroller2 = scrollRef2.current
+    
+    if (scroller1 && scroller2 && !showDetails) {
+      let loopAnimation1: gsap.core.Tween;
+      let loopAnimation2: gsap.core.Tween;
       
       const initScroll = () => {
-        if (loopAnimation) loopAnimation.kill();
+        if (loopAnimation1) loopAnimation1.kill();
+        if (loopAnimation2) loopAnimation2.kill();
         
-        const scrollWidth = scroller.scrollWidth;
-        const style = window.getComputedStyle(scroller.firstElementChild as HTMLElement);
-        const gap = parseInt(style.columnGap || style.gap || '16') || (window.innerWidth < 768 ? 12 : 16);
-        const loopPoint = (scrollWidth + gap) / 2;
+        // Row 1 Logic (Moves Left)
+        const scrollWidth1 = scroller1.scrollWidth;
+        const style1 = window.getComputedStyle(scroller1.firstElementChild as HTMLElement);
+        const gap1 = parseInt(style1.columnGap || style1.gap || '16') || (window.innerWidth < 768 ? 12 : 16);
+        const loopPoint1 = (scrollWidth1 + gap1) / 2;
 
-        loopAnimation = gsap.to(scroller, {
-          scrollLeft: loopPoint,
-          duration: 50,
+        loopAnimation1 = gsap.to(scroller1, {
+          scrollLeft: loopPoint1,
+          duration: 40,
           ease: 'none',
           repeat: -1,
           onRepeat: () => {
-            scroller.scrollLeft = 0;
+            scroller1.scrollLeft = 0;
+          }
+        });
+
+        // Row 2 Logic (Moves Right)
+        const scrollWidth2 = scroller2.scrollWidth;
+        const style2 = window.getComputedStyle(scroller2.firstElementChild as HTMLElement);
+        const gap2 = parseInt(style2.columnGap || style2.gap || '16') || (window.innerWidth < 768 ? 12 : 16);
+        const loopPoint2 = (scrollWidth2 + gap2) / 2;
+
+        // Start from end for Row 2
+        scroller2.scrollLeft = loopPoint2;
+
+        loopAnimation2 = gsap.to(scroller2, {
+          scrollLeft: 0,
+          duration: 40,
+          ease: 'none',
+          repeat: -1,
+          onRepeat: () => {
+            scroller2.scrollLeft = loopPoint2;
           }
         });
       };
@@ -1082,21 +1239,28 @@ export default function OverStimulatedApp() {
       };
       
       const handleMouseEnter = () => {
-        if (loopAnimation) gsap.to(loopAnimation, { timeScale: 0.1, duration: 0.8, ease: "power2.out" });
+        if (loopAnimation1) gsap.to(loopAnimation1, { timeScale: 0.1, duration: 0.8, ease: "power2.out" });
+        if (loopAnimation2) gsap.to(loopAnimation2, { timeScale: 0.1, duration: 0.8, ease: "power2.out" });
       };
       const handleMouseLeave = () => {
-        if (loopAnimation) gsap.to(loopAnimation, { timeScale: 1, duration: 0.8, ease: "power2.inOut" });
+        if (loopAnimation1) gsap.to(loopAnimation1, { timeScale: 1, duration: 0.8, ease: "power2.inOut" });
+        if (loopAnimation2) gsap.to(loopAnimation2, { timeScale: 1, duration: 0.8, ease: "power2.inOut" });
       };
 
       window.addEventListener('resize', handleResize);
-      scroller.addEventListener('mouseenter', handleMouseEnter);
-      scroller.addEventListener('mouseleave', handleMouseLeave);
+      scroller1.addEventListener('mouseenter', handleMouseEnter);
+      scroller1.addEventListener('mouseleave', handleMouseLeave);
+      scroller2.addEventListener('mouseenter', handleMouseEnter);
+      scroller2.addEventListener('mouseleave', handleMouseLeave);
 
       return () => {
-        if (loopAnimation) loopAnimation.kill();
+        if (loopAnimation1) loopAnimation1.kill();
+        if (loopAnimation2) loopAnimation2.kill();
         window.removeEventListener('resize', handleResize);
-        scroller.removeEventListener('mouseenter', handleMouseEnter);
-        scroller.removeEventListener('mouseleave', handleMouseLeave);
+        scroller1.removeEventListener('mouseenter', handleMouseEnter);
+        scroller1.removeEventListener('mouseleave', handleMouseLeave);
+        scroller2.removeEventListener('mouseenter', handleMouseEnter);
+        scroller2.removeEventListener('mouseleave', handleMouseLeave);
       }
     }
 
@@ -1141,22 +1305,21 @@ export default function OverStimulatedApp() {
   }, [showDetails])
 
   const projects = [
-    { id: 1, name: 'better now closer', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#1a3d32]', colSpan: 'col-span-2', rowSpan: 'row-span-1', link: 'https://thezinnes.vercel.app/', videoUrl: '/zinnes.mp4' },
-    { id: 2, name: 'Collaboration', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://thatune.vercel.app/', videoUrl: '/tatune.mp4' },
-    { id: 3, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
-    { id: 4, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'col-span-1', rowSpan: 'row-span-2', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
-    { id: 5, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
-    { id: 6, name: 'I\'ll be in touch', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://frontyard-nine.vercel.app/', videoUrl: '/frontyard.mp4' },
-    { id: 7, name: 'Global Connect', type: 'client', bgColor: 'bg-[#1a1a1a]', textColor: 'text-white', colSpan: 'col-span-2', rowSpan: 'row-span-1', link: 'https://gpt-os.vercel.app/', videoUrl: '/gpt.mp4' },
-    { id: 8, name: 'Momentum', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://volve-studio.vercel.app/', videoUrl: '/evolve.mp4' },
-    { id: 9, name: 'Pixel Perfect', type: 'client', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#1a3d32]', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://rituaaaaal-store.vercel.app/', videoUrl: '/ritual.mp4' },
-    { id: 10, name: 'Interface X', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-black', colSpan: 'col-span-1', rowSpan: 'row-span-2', link: 'https://xio-labs.vercel.app/', videoUrl: '/xiolabs.mp4' },
-    { id: 11, name: 'Vector Flow', type: 'client', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://airline-ashy.vercel.app/', videoUrl: '/joby.mp4' },
-    { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'col-span-2', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', videoUrl: '/trigger.mp4' },
-    { id: 13, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
-    { id: 14, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'col-span-1', rowSpan: 'row-span-2', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
-    { id: 15, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'col-span-1', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
-
+    { id: 1, name: 'better now closer', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thezinnes.vercel.app/', videoUrl: '/zinnes.mp4' },
+    { id: 2, name: 'Collaboration', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thatune.vercel.app/', videoUrl: '/tatune.mp4' },
+    { id: 3, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
+    { id: 4, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
+    { id: 5, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
+    { id: 6, name: 'I\'ll be in touch', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://frontyard-nine.vercel.app/', videoUrl: '/frontyard.mp4' },
+    { id: 7, name: 'Global Connect', type: 'client', bgColor: 'bg-[#1a1a1a]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://gpt-os.vercel.app/', videoUrl: '/gpt.mp4' },
+    { id: 8, name: 'Momentum', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://volve-studio.vercel.app/', videoUrl: '/evolve.mp4' },
+    { id: 9, name: 'Pixel Perfect', type: 'client', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://rituaaaaal-store.vercel.app/', videoUrl: '/ritual.mp4' },
+    { id: 10, name: 'Interface X', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-black', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://xio-labs.vercel.app/', videoUrl: '/xiolabs.mp4' },
+    { id: 11, name: 'Vector Flow', type: 'client', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://airline-ashy.vercel.app/', videoUrl: '/joby.mp4' },
+    { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', videoUrl: '/trigger.mp4' },
+    { id: 13, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
+    { id: 14, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
+    { id: 15, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
   ]
 
   const [isEstimatorOpen, setIsEstimatorOpen] = useState(false)
@@ -1164,6 +1327,7 @@ export default function OverStimulatedApp() {
   return (
     <main className="min-h-screen bg-white font-sans text-black selection:bg-black selection:text-white" ref={containerRef}>
       <BallparkEstimator isOpen={isEstimatorOpen} onClose={() => setIsEstimatorOpen(false)} />
+      <TemplateStoreSection projects={projects} isOpen={viewMode === 'template-store'} onClose={() => setViewMode('about')} isMobile={isMobile} />
       {/* Entry Reveal Overlay */}
       <AnimatePresence onExitComplete={() => setIsReady(true)}>
         {!isReady && (
@@ -1312,9 +1476,9 @@ export default function OverStimulatedApp() {
                       The R&D lab of OverHorizon. Build tools that remove stimulation and create space for work that matters.
                     </p>
                     <div className="p-4 bg-black/[0.02] rounded-2xl">
-                       <h4 className="text-[12px] font-bold mb-1">Ballpark</h4>
-                       <p className="text-[11px] text-black/50 mb-3">Instant project estimates for service-based businesses.</p>
-                       <button onClick={() => setIsEstimatorOpen(true)} className="text-[11px] font-bold border-b border-black/20 pb-0.5">Launch Tool &rarr;</button>
+                       <h4 className="text-[12px] font-bold mb-1">Store®</h4>
+                       <p className="text-[11px] text-black/50 mb-3">A place to find and purchase our high-end digital templates.</p>
+                       <button onClick={() => setViewMode('template-store')} className="text-[11px] font-bold border-b border-black/20 pb-0.5">Explore Store &rarr;</button>
                     </div>
                   </motion.div>
                 ) : null}
@@ -1391,6 +1555,7 @@ export default function OverStimulatedApp() {
                       title="Index" 
                       items={[
                         { text: "Weekly Journal", onClick: () => { setViewMode('writing'); setSelectedWritingId(null); setShowMobileMenu(false); } },
+                        { text: "Template Store", onClick: () => { setViewMode('template-store'); setShowMobileMenu(false); } },
                         { text: "Get an Instant Estimate", onClick: () => { setIsEstimatorOpen(true); setShowMobileMenu(false); } },
                         { text: "OS Software®", onClick: () => { setViewMode('os-tools'); setShowMobileMenu(false); } }
                       ]} 
@@ -1441,6 +1606,15 @@ export default function OverStimulatedApp() {
                   className={`text-[13px] text-left transition-all ${viewMode === 'os-tools' ? 'opacity-100 font-medium' : 'opacity-80 hover:opacity-100'}`}
                 >
                   OS Software®
+                </button>
+                <button 
+                  onClick={() => {
+                    setViewMode('template-store')
+                    setSelectedWritingId(null)
+                  }}
+                  className={`text-[13px] text-left transition-all ${viewMode === 'template-store' ? 'opacity-100 font-medium' : 'opacity-80 hover:opacity-100'}`}
+                >
+                  Template Store®
                 </button>
                 <button 
                   onClick={() => {
@@ -1557,17 +1731,22 @@ export default function OverStimulatedApp() {
                       The R&D lab of OverHorizon. A place to test ideas, sharpen our craft, and build what we wish existed. The ethos here is simple: Build tools that remove stimulation and create space for work that matters.
                     </p>
                     
-                    <div className="mt-6 md:mt-8">
-                      <h4 className="text-[13px] md:text-[13px] font-medium mb-1.5">Ballpark</h4>
-                      <p className="text-[12px] md:text-[13px] leading-relaxed text-black/50 max-w-full md:max-w-[340px] mb-3">
-                        Hours are wasted on calls, emails, and proposals that were never going to work. Ballpark is an embeddable that sends instants estimates on your services. Clients qualify themselves, giving you time back for the work that matters.
-                      </p>
-                      <button 
-                        onClick={() => setIsEstimatorOpen(true)}
-                        className="text-[12px] font-medium border-b border-black/20 pb-0.5 hover:border-black/100 transition-colors uppercase tracking-widest"
-                      >
-                        Launch Ballpark Tool &rarr;
-                      </button>
+                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="group cursor-pointer">
+                        <h4 className="text-[13px] md:text-[13px] font-medium mb-1.5 flex items-center gap-2">
+                           Template Store
+                           <span className="text-[9px] px-1 bg-black/5 rounded">Beta</span>
+                        </h4>
+                        <p className="text-[12px] md:text-[13px] leading-relaxed text-black/50 max-w-full md:max-w-[340px] mb-3">
+                          A curated collection of web patterns, components, and full sites built with care and obsessed-over details.
+                        </p>
+                        <button 
+                          onClick={() => setViewMode('template-store')}
+                          className="text-[12px] font-medium border-b border-black/20 pb-0.5 hover:border-black/100 transition-colors uppercase tracking-widest"
+                        >
+                          Explore Store &rarr;
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -1672,56 +1851,113 @@ export default function OverStimulatedApp() {
 
       {/* Main Content / Projects Section */}
       <section className={`${isMobile ? 'pt-[200px]' : 'pt-[340px] md:pt-[240px]'} pb-10 transition-all duration-700 relative z-10 ${showDetails && !isMobile ? 'scale-[0.96] opacity-30 blur-md' : 'scale-100 opacity-100 blur-0'}`}>
-        <div 
-          className="flex overflow-x-auto overflow-y-visible no-scrollbar px-6 md:px-12 items-center h-[660px] md:h-[860px] py-20 md:py-32" 
-          ref={scrollRef}
-        >
-          <div className="grid grid-rows-3 grid-flow-col gap-3 md:gap-4 h-full">
-            {[...projects, ...projects].map((project, index) => (
-              <a 
-                key={`${project.id}-${index}`}
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex-none ${project.colSpan} ${project.rowSpan} w-[42vw] md:w-auto md:min-w-[130px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
-              >
-                {/* Background Video */}
-                <div className="absolute inset-0 w-full h-full opacity-40 group-hover:opacity-80 transition-opacity duration-700">
-                  <video 
-                    autoPlay 
-                    muted 
-                    loop 
-                    playsInline 
-                    className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700"
-                  >
-                    <source src={project.videoUrl} type="video/mp4" />
-                  </video>
-                </div>
+        <div className="flex flex-col gap-4 md:gap-6 py-10 md:py-20 h-auto">
+          {/* Row 1: Left Moving */}
+          <div 
+            className="flex overflow-x-auto overflow-y-visible no-scrollbar px-6 md:px-12 items-center h-[330px] md:h-[430px]" 
+            ref={scrollRef1}
+          >
+            <div className="flex gap-3 md:gap-4 h-full">
+              {[...projects.filter((_, i) => i % 2 === 0), ...projects.filter((_, i) => i % 2 === 0)].map((project, index) => (
+                <a 
+                  key={`r1-${project.id}-${index}`}
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-none ${project.colSpan} ${project.rowSpan} w-[80vw] md:w-auto md:min-w-[450px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
+                >
+                  {/* Background Video */}
+                  <div className="absolute inset-0 w-full h-full flex items-center justify-center p-4">
+                    <video 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline 
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    >
+                      <source src={project.videoUrl} type="video/mp4" />
+                    </video>
+                  </div>
 
-                {/* Card Content Overlay */}
-                <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                       <div className="w-5 h-5 rounded-full border border-black/10 flex items-center justify-center bg-white/20 backdrop-blur-sm">
-                          {project.type === 'client' ? <ClientIcon /> : <InternalIcon />}
-                       </div>
+                  {/* Card Content Overlay */}
+                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                         <div className="w-5 h-5 rounded-full border border-black/10 flex items-center justify-center bg-white/20 backdrop-blur-sm">
+                            {project.type === 'client' ? <ClientIcon /> : <InternalIcon />}
+                         </div>
+                      </div>
                     </div>
+
+                    <h3 className={`text-[11px] md:text-[13px] font-medium leading-[1.1] tracking-tight max-w-[140px] md:max-w-[180px] ${project.textColor} transition-transform duration-500 group-hover:translate-x-1.5 opacity-70 group-hover:opacity-100`}>
+                      {project.name}
+                    </h3>
                   </div>
 
-                  <h3 className={`text-[11px] md:text-[13px] font-medium leading-[1.1] tracking-tight max-w-[140px] md:max-w-[180px] ${project.textColor} transition-transform duration-500 group-hover:translate-x-1.5 opacity-70 group-hover:opacity-100`}>
-                    {project.name}
-                  </h3>
-                </div>
-
-                {/* Hover "See More" Overlay */}
-                <div className="absolute inset-0 bg-black/60 md:bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-4">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center text-black">
-                    <MoveUpRight size={20} className="md:w-6 md:h-6" />
+                  {/* Hover "See More" Overlay */}
+                  <div className="absolute inset-0 bg-black/60 md:bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-4">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center text-black">
+                      <MoveUpRight size={20} className="md:w-6 md:h-6" />
+                    </div>
+                    <span className="text-white text-[11px] md:text-[12px] font-medium tracking-tight">Expand {project.name}...</span>
                   </div>
-                  <span className="text-white text-[11px] md:text-[12px] font-medium tracking-tight">Expand {project.name}...</span>
-                </div>
-              </a>
-            ))}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2: Right Moving */}
+          <div 
+            className="flex overflow-x-auto overflow-y-visible no-scrollbar px-6 md:px-12 items-center h-[330px] md:h-[430px]" 
+            ref={scrollRef2}
+          >
+            <div className="flex gap-3 md:gap-4 h-full">
+              {[...projects.filter((_, i) => i % 2 !== 0), ...projects.filter((_, i) => i % 2 !== 0)].map((project, index) => (
+                <a 
+                  key={`r2-${project.id}-${index}`}
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-none ${project.colSpan} ${project.rowSpan} w-[80vw] md:w-auto md:min-w-[450px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
+                >
+                  {/* Background Video */}
+                  <div className="absolute inset-0 w-full h-full flex items-center justify-center p-4">
+                    <video 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline 
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    >
+                      <source src={project.videoUrl} type="video/mp4" />
+                    </video>
+                  </div>
+
+                  {/* Card Content Overlay */}
+                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                         <div className="w-5 h-5 rounded-full border border-black/10 flex items-center justify-center bg-white/20 backdrop-blur-sm">
+                            {project.type === 'client' ? <ClientIcon /> : <InternalIcon />}
+                         </div>
+                      </div>
+                    </div>
+
+                    <h3 className={`text-[11px] md:text-[13px] font-medium leading-[1.1] tracking-tight max-w-[140px] md:max-w-[180px] ${project.textColor} transition-transform duration-500 group-hover:translate-x-1.5 opacity-70 group-hover:opacity-100`}>
+                      {project.name}
+                    </h3>
+                  </div>
+
+                  {/* Hover "See More" Overlay */}
+                  <div className="absolute inset-0 bg-black/60 md:bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-4">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center text-black">
+                      <MoveUpRight size={20} className="md:w-6 md:h-6" />
+                    </div>
+                    <span className="text-white text-[11px] md:text-[12px] font-medium tracking-tight">Expand {project.name}...</span>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
