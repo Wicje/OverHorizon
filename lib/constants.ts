@@ -2,18 +2,18 @@
 export type ViewMode = 'about' | 'os-tools' | 'writing' | 'ballpark' | 'template-store'
 
 export const projects = [
-  { id: 1, name: 'better now closer', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thezinnes.vercel.app/', videoUrl: '/zinnes.mp4' },
-  { id: 2, name: 'Collaboration', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thatune.vercel.app/', videoUrl: '/tatune.mp4' },
-  { id: 3, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', videoUrl: '/askchill.mp4' },
-  { id: 4, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://peter-umeh.vercel.app/', videoUrl: '/peterumeh.mp4' },
-  { id: 5, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', videoUrl: '/m.mp4' },
-  { id: 6, name: 'I\'ll be in touch', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://frontyard-nine.vercel.app/', videoUrl: '/frontyard.mp4' },
-  { id: 7, name: 'Global Connect', type: 'client', bgColor: 'bg-[#1a1a1a]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://gpt-os.vercel.app/', videoUrl: '/gpt.mp4' },
-  { id: 8, name: 'Momentum', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://volve-studio.vercel.app/', videoUrl: '/evolve.mp4' },
-  { id: 9, name: 'Pixel Perfect', type: 'client', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://rituaaaaal-store.vercel.app/', videoUrl: '/ritual.mp4' },
-  { id: 10, name: 'Interface X', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-black', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://xio-labs.vercel.app/', videoUrl: '/xiolabs.mp4' },
-  { id: 11, name: 'Vector Flow', type: 'client', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://airline-ashy.vercel.app/', videoUrl: '/joby.mp4' },
-  { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-10', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', videoUrl: '/trigger.mp4' },
+  { id: 1, name: 'better now closer', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thezinnes.vercel.app/', mediaUrl: '/zinnes.mp4' },
+  { id: 2, name: 'Collaboration', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://thatune.vercel.app/', mediaUrl: '/tatune.mp4' },
+  { id: 3, name: 'Team Adaptation', type: 'client', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://askchill.vercel.app/', mediaUrl: '/askchill.mp4' },
+  { id: 4, name: 'Bring People Together', type: 'internal', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://peter-umeh.vercel.app/', mediaUrl: '/peterumeh.mp4' },
+  { id: 5, name: 'sync systems', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-[#e31e24]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://the-m-sigma.vercel.app/', mediaUrl: '/m.mp4' },
+  { id: 6, name: 'I\'ll be in touch', type: 'internal', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://frontyard-nine.vercel.app/', mediaUrl: '/frontyard.mp4' },
+  { id: 7, name: 'Global Connect', type: 'client', bgColor: 'bg-[#1a1a1a]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://gpt-os.vercel.app/', mediaUrl: '/gpt.mp4' },
+  { id: 8, name: 'Momentum', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://volve-studio.vercel.app/', mediaUrl: '/evolve.mp4' },
+  { id: 9, name: 'Pixel Perfect', type: 'client', bgColor: 'bg-[#f7f5ef]', textColor: 'text-[#1a3d32]', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://rituaaaaal-store.vercel.app/', mediaUrl: '/ritual.mp4' },
+  { id: 10, name: 'Interface X', type: 'client', bgColor: 'bg-[#f2f0e4]', textColor: 'text-black', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://xio-labs.vercel.app/', mediaUrl: '/xiolabs.mp4' },
+  { id: 11, name: 'Vector Flow', type: 'client', bgColor: 'bg-[#0a4d3c]', textColor: 'text-white', colSpan: 'md:col-span-5', rowSpan: 'row-span-1', link: 'https://airline-ashy.vercel.app/', mediaUrl: '/joby.mp4' },
+  { id: 12, name: 'Creative Lab', type: 'internal', bgColor: 'bg-[#e31e24]', textColor: 'text-white', colSpan: 'md:col-span-10', rowSpan: 'row-span-1', link: 'https://trigger-plum.vercel.app/', mediaUrl: '/trigger.mp4' },
 ]
 
 export const writings = [

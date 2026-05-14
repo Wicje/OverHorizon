@@ -14,7 +14,7 @@ interface Project {
   colSpan: string
   rowSpan: string
   link: string
-  videoUrl: string
+  mediaUrl: string
 }
 
 interface ProjectCardsSectionProps {
@@ -216,17 +216,25 @@ const ProjectCardsSection = ({ projects, isMobile, showDetails }: ProjectCardsSe
                 }}
                 className={`flex-none ${project.colSpan} ${project.rowSpan} w-[80vw] md:w-auto md:min-w-[450px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
               >
-                {/* Background Video */}
+                {/* Background Media */}
                 <div className="absolute inset-0 w-full h-full flex items-center justify-center p-4">
-                  <video 
-                    autoPlay 
-                    muted 
-                    loop 
-                    playsInline 
-                    className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
-                  >
-                    <source src={project.videoUrl} type="video/mp4" />
-                  </video>
+                  {project.mediaUrl.endsWith('.mp4') ? (
+                    <video 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline 
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    >
+                      <source src={project.mediaUrl} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img 
+                      src={project.mediaUrl} 
+                      alt={project.name}
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* Card Content Overlay */}
@@ -276,17 +284,25 @@ const ProjectCardsSection = ({ projects, isMobile, showDetails }: ProjectCardsSe
                 }}
                 className={`flex-none ${project.colSpan} ${project.rowSpan} w-[80vw] md:w-auto md:min-w-[450px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
               >
-                {/* Background Video */}
+                {/* Background Media */}
                 <div className="absolute inset-0 w-full h-full flex items-center justify-center p-4">
-                  <video 
-                    autoPlay 
-                    muted 
-                    loop 
-                    playsInline 
-                    className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
-                  >
-                    <source src={project.videoUrl} type="video/mp4" />
-                  </video>
+                  {project.mediaUrl.endsWith('.mp4') ? (
+                    <video 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline 
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    >
+                      <source src={project.mediaUrl} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img 
+                      src={project.mediaUrl} 
+                      alt={project.name}
+                      className="max-w-full max-h-full object-contain transition-all duration-700 project-card-image group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* Card Content Overlay */}
