@@ -1673,26 +1673,26 @@ export default function OverStimulatedApp() {
       {/* Main Content / Projects Section */}
       <section className={`${isMobile ? 'pt-[200px]' : 'pt-[340px] md:pt-[240px]'} pb-10 transition-all duration-700 relative z-10 ${showDetails && !isMobile ? 'scale-[0.96] opacity-30 blur-md' : 'scale-100 opacity-100 blur-0'}`}>
         <div 
-          className="flex overflow-x-auto overflow-y-visible no-scrollbar px-6 md:px-12 items-center h-[600px] md:h-[750px] py-16 md:py-24" 
+          className="flex overflow-x-auto overflow-y-visible no-scrollbar px-6 md:px-12 items-center h-[660px] md:h-[860px] py-20 md:py-32" 
           ref={scrollRef}
         >
-          <div className="grid grid-rows-2 grid-flow-col gap-4 md:gap-6 h-full">
+          <div className="grid grid-rows-3 grid-flow-col gap-3 md:gap-4 h-full">
             {[...projects, ...projects].map((project, index) => (
               <a 
                 key={`${project.id}-${index}`}
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-none ${project.colSpan} ${project.rowSpan} w-[70vw] md:w-auto md:min-w-[380px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[20px] md:rounded-[28px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000 shadow-sm`}
+                className={`flex-none ${project.colSpan} ${project.rowSpan} w-[42vw] md:w-auto md:min-w-[130px] h-full group cursor-pointer project-card relative overflow-hidden ${project.bgColor} rounded-[10px] md:rounded-[14px] transition-transform duration-500 hover:scale-[0.98] animate-in fade-in duration-1000`}
               >
                 {/* Background Video */}
-                <div className="absolute inset-0 w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="absolute inset-0 w-full h-full opacity-40 group-hover:opacity-80 transition-opacity duration-700">
                   <video 
                     autoPlay 
                     muted 
                     loop 
                     playsInline 
-                    className="w-full h-full object-contain object-center grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700"
                   >
                     <source src={project.videoUrl} type="video/mp4" />
                   </video>
