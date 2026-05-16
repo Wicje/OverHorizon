@@ -7,8 +7,8 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: 'OverHorizon Studio',
-  description: 'The official portfolio for OverHorizon, a design-sensitive engineering studio building products for AI and future-tech companies.',
+  title: 'OverHorizonLabs',
+  description: 'The official website for OverHorizon, a design-sensitive engineering studio building products for AI and future-tech companies.',
 }
 
 export default function RootLayout({

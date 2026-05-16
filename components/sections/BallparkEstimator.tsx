@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from 'motion/react'
 import { ArrowDown, Check, MoveUpRight } from 'lucide-react'
 import { LogoIcon } from '../intro/IntroHelpers'
 
-interface BallparkEstimatorProps {
+interface HorizonEstimatorProps {
   isOpen: boolean
   onClose: () => void
 }
 
-const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
+const HorizonEstimator = ({ isOpen, onClose }: HorizonEstimatorProps) => {
   const [step, setStep] = useState<string>('intro')
   const [category, setCategory] = useState<string>('')
   const [pages, setPages] = useState(3)
@@ -246,7 +246,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                   Get started <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </button>
                 <div className="w-full text-center">
-                  <span className="text-black/20 text-[9px] font-bold uppercase tracking-[0.2em]">Powered by Ballpark</span>
+                  <span className="text-black/20 text-[9px] font-bold uppercase tracking-[0.2em]">Powered by Horizon</span>
                 </div>
               </motion.div>
             ) : step === 'success' ? (
@@ -287,9 +287,9 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                   {step === 'name' && (
                     <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
                       <div className="bg-black/[0.03] text-black p-3 rounded-2xl rounded-bl-none max-w-[90%] text-[13px] leading-[1.4] mb-2 shadow-sm">
-                        Hey! I&apos;m Will. What&apos;s your name?
+                        Hey! I&apos;m Chisom. What&apos;s your name?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -298,7 +298,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Nice to meet you, {userName}. What space do you operate in?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -307,7 +307,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         How would you describe the design complexity?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -316,7 +316,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Do you need custom illustrations?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -325,7 +325,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Level of animations or interactive elements?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -334,7 +334,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Which custom features do you need?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -343,7 +343,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Do you need a CMS for updates?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -352,7 +352,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         How many third-party integrations (CRM, Email, etc)?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -361,7 +361,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         How complex is your data structure?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -370,7 +370,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         How many APIs do you need to integrate?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -379,7 +379,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Complexity of the data being transferred?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -388,7 +388,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Do you need real-time sync?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -397,7 +397,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Which authentication methods do you require? (You can skip if not needed)
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -406,7 +406,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         What deliverables do you expect?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -415,7 +415,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         How many pages/screens do you need?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
                   
@@ -424,7 +424,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         What is your preferred project timeline?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
 
@@ -433,7 +433,7 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
                       <div className="bg-black/[0.03] text-black p-4 rounded-2xl rounded-bl-none max-w-[90%] text-[14px] leading-[1.4] mb-2 shadow-sm">
                         Where should we send your project estimate?
                       </div>
-                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Will from Ballpark</div>
+                      <div className="text-[8px] text-black/20 font-bold uppercase tracking-[0.2em] pl-1">Chisom from Horizon</div>
                     </motion.div>
                   )}
                 </div>
@@ -772,4 +772,4 @@ const BallparkEstimator = ({ isOpen, onClose }: BallparkEstimatorProps) => {
   )
 }
 
-export default BallparkEstimator
+export default HorizonEstimator

@@ -165,7 +165,7 @@ const Header = ({
                     title="Leadership" 
                     items={[
                       "Ani Chisom",
-                      { text: "Founder / Design Engineer - X", icon: null, href: "https://x.com" }
+                      { text: "Founder / Creative Architect", icon: null, href: "https://x.com/ArchJosephan" }
                     ]} 
                   />
                   <DetailColumn 
@@ -220,9 +220,9 @@ const Header = ({
                   <DetailColumn 
                     title="Index" 
                     items={[
-                      { text: "Weekly Journal", onClick: () => { setViewMode('writing'); setSelectedWritingId(null); setShowMobileMenu(false); } },
+                      { text: "Writing", onClick: () => { setViewMode('writing'); setSelectedWritingId(null); setShowMobileMenu(false); } },
                       { text: "Get an Instant Estimate", onClick: () => { setIsEstimatorOpen(true); setShowMobileMenu(false); } },
-                      { text: "OS Software®", onClick: () => { setViewMode('os-tools'); setShowMobileMenu(false); } }
+                      { text: "OH Software®", onClick: () => { setViewMode('os-tools'); setShowMobileMenu(false); } }
                     ]} 
                   />
                 </div>
@@ -254,7 +254,7 @@ const Header = ({
                 }}
                 className={`text-[13px] text-left transition-all ${viewMode === 'writing' ? 'opacity-100 font-medium' : 'opacity-80 hover:opacity-100'}`}
               >
-                Weekly Journal
+                Writing
               </button>
               <button 
                 onClick={() => setIsEstimatorOpen(true)}
@@ -269,7 +269,7 @@ const Header = ({
                 }}
                 className={`text-[13px] text-left transition-all ${viewMode === 'os-tools' ? 'opacity-100 font-medium' : 'opacity-80 hover:opacity-100'}`}
               >
-                OS Software®
+                OH Software®
               </button>
               <button 
                 onClick={() => {
@@ -436,7 +436,7 @@ const Header = ({
                 title="Leadership" 
                 items={[
                   "Ani Chisom",
-                  { text: "Founder / Design Engineer - X", icon: null, href: "https://x.com" }
+                  { text: "Founder / Creative Architect", icon: null, href: "https://x.com/ArchJosephan" }
                 ]} 
                 onAction={handleContactClick}
                 isCopied={copied}
@@ -478,7 +478,7 @@ const Header = ({
                   title="Contact" 
                   items={[
                     "anichisom4top@gmail.com",
-                    "X (Twitter)"
+                    "ArchJosephan (X)"
                   ]} 
                   onAction={handleContactClick}
                   isCopied={copied}

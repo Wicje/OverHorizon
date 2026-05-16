@@ -53,7 +53,7 @@ const IntroOverlay = ({ isReady, setIsReady }: IntroOverlayProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.6 }}
                 transition={{ delay: 1 }}
-                className="mt-4 text-[11px] uppercase tracking-[0.5em] font-light text-black"
+                className="mt-4 text-[14px] uppercase tracking-[0.5em] font-black text-black"
               >
                 OverHorizon &copy; 2026
               </motion.div>
